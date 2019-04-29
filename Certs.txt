@@ -1,0 +1,44 @@
+docker run -it -v "C:\temp":/export frapsoft/openssl req -nodes -new -newkey rsa:2048 -sha256 -out /export/cert.pem
+
+docker run -it -v "C:\temp":/export frapsoft/openssl x509 -req -in dev.mergebot.com.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial \
+-out dev.mergebot.com.crt -days 1825 -sha256 -extfile dev.mergebot.com.ext
+
+docker run -it -v "C:\temp":/export frapsoft/openssl genrsa -out /export/hosting-svr.tridentspectre.esri.private.key 2048
+
+docker run -it -v "C:\temp":/export frapsoft/openssl req -new -key /export/hosting-svr.tridentspectre.esri.private.key -out /export/hosting-svr.tridentspectre.esri.private.csr
+
+docker run -it -v "C:\temp":/export frapsoft/openssl x509 -req -in /export/hosting-svr.tridentspectre.esri.private.csr -CA /export/myCA.pem -CAkey /export/myCA.key -CAcreateserial -out /export/hosting-svr.tridentspectre.esri.private.crt -days 1825 -sha256 -extfile /export/hosting-svr.tridentspectre.esri.private.ext
+
+
+###### hosting-svr ########
+docker run -it -v "C:\temp":/export frapsoft/openssl req -x509 -new -nodes -key /export/myCA.key -sha256 -days 1825 -out /export/myCA.pem
+
+docker run -it -v "C:\temp":/export frapsoft/openssl genrsa -des3 -out /export/myCA.key 2048
+
+docker run -it -v "C:\temp":/export frapsoft/openssl genrsa -out /export/hosting-svr.tridentspectre.esri.private.key 2048
+
+docker run -it -v "C:\temp":/export frapsoft/openssl req -new -key /export/hosting-svr.tridentspectre.esri.private.key -out /export/hosting-svr.tridentspectre.esri.private.csr
+
+docker run -it -v "C:\temp":/export frapsoft/openssl x509 -req -in /export/hosting-svr.tridentspectre.esri.private.csr -CA /export/myCA.pem -CAkey /export/myCA.key -CAcreateserial -out /export/hosting-svr.tridentspectre.esri.private.crt -days 1825 -sha256 -extfile /export/hosting-svr.tridentspectre.esri.private.ext
+
+docker run -it -v "C:\temp":/export frapsoft/openssl pkcs12 -export -out /export/hosting-svr.tridentspectre.esri.private.pfx -inkey /export/hosting-svr.tridentspectre.esri.private.key -in /export/hosting-svr.tridentspectre.esri.private.crt
+
+####### geoevent ##########
+
+docker run -it -v "C:\temp":/export frapsoft/openssl genrsa -out /export/ge-svr.tridentspectre.esri.private.key 2048
+
+docker run -it -v "C:\temp":/export frapsoft/openssl req -new -key /export/ge-svr.tridentspectre.esri.private.key -out /export/ge-svr.tridentspectre.esri.private.csr
+
+docker run -it -v "C:\temp":/export frapsoft/openssl x509 -req -in /export/ge-svr.tridentspectre.esri.private.csr -CA /export/myCA.pem -CAkey /export/myCA.key -CAcreateserial -out /export/ge-svr.tridentspectre.esri.private.crt -days 1825 -sha256 -extfile /export/ge-svr.tridentspectre.esri.private.ext
+
+docker run -it -v "C:\temp":/export frapsoft/openssl pkcs12 -export -out /export/ge-svr.tridentspectre.esri.private.pfx -inkey /export/ge-svr.tridentspectre.esri.private.key -in /export/ge-svr.tridentspectre.esri.private.crt
+
+####### geoanalytics ##########
+
+docker run -it -v "C:\temp":/export frapsoft/openssl genrsa -out /export/ga-svr.tridentspectre.esri.private.key 2048
+
+docker run -it -v "C:\temp":/export frapsoft/openssl req -new -key /export/ga-svr.tridentspectre.esri.private.key -out /export/ga-svr.tridentspectre.esri.private.csr
+
+docker run -it -v "C:\temp":/export frapsoft/openssl x509 -req -in /export/ga-svr.tridentspectre.esri.private.csr -CA /export/myCA.pem -CAkey /export/myCA.key -CAcreateserial -out /export/ga-svr.tridentspectre.esri.private.crt -days 1825 -sha256 -extfile /export/ga-svr.tridentspectre.esri.private.ext
+
+docker run -it -v "C:\temp":/export frapsoft/openssl pkcs12 -export -out /export/ga-svr.tridentspectre.esri.private.pfx -inkey /export/ga-svr.tridentspectre.esri.private.key -in /export/ga-svr.tridentspectre.esri.private.crt

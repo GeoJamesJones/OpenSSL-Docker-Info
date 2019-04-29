@@ -1,0 +1,3 @@
+https://www.ssl.com/how-to/create-a-pfx-p12-certificate-file-using-openssl/
+
+https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
